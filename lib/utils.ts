@@ -2,7 +2,7 @@ import { CoreMessage, CoreToolMessage, generateId, Message, ToolInvocation } fro
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import { Chat } from "@/lib/db/schema";
+import type { Chat } from "@/lib/db/schemas";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

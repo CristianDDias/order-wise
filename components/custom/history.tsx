@@ -24,10 +24,10 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 
 import { InfoIcon, MenuIcon, MoreHorizontalIcon, PencilEditIcon, TrashIcon } from "./icons";
 
-import { User, Chat } from "@/lib/db/schema";
+import type { Chat } from "@/lib/db/schemas";
 import { fetcher, getTitleFromChat } from "@/lib/utils";
 
-export const History = ({ user }: { user: User | undefined }) => {
+export const History = ({ hasUser }: { hasUser: boolean }) => {
   const { id } = useParams();
   const pathname = usePathname();
 
@@ -36,7 +36,7 @@ export const History = ({ user }: { user: User | undefined }) => {
     data: history,
     isLoading,
     mutate,
-  } = useSWR<Chat[]>(user ? "/api/history" : null, fetcher, {
+  } = useSWR<Chat[]>(hasUser ? "/api/history" : null, fetcher, {
     fallbackData: [],
   });
 
@@ -107,7 +107,7 @@ export const History = ({ user }: { user: User | undefined }) => {
           </div>
 
           <div className="mt-10 flex flex-col">
-            {user && (
+            {hasUser && (
               <Button className="font-normal text-sm flex flex-row justify-between text-white" asChild>
                 <Link href="/">
                   <div>Start a new chat</div>
@@ -117,21 +117,21 @@ export const History = ({ user }: { user: User | undefined }) => {
             )}
 
             <div className="flex flex-col overflow-y-scroll p-1 h-[calc(100dvh-124px)]">
-              {!user ? (
+              {!hasUser ? (
                 <div className="text-zinc-500 h-dvh w-full flex flex-row justify-center items-center text-sm gap-2">
                   <InfoIcon />
                   <div>Login to save and revisit previous chats!</div>
                 </div>
               ) : null}
 
-              {!isLoading && history?.length === 0 && user ? (
+              {!isLoading && history?.length === 0 && hasUser ? (
                 <div className="text-zinc-500 h-dvh w-full flex flex-row justify-center items-center text-sm gap-2">
                   <InfoIcon />
                   <div>No chats found</div>
                 </div>
               ) : null}
 
-              {isLoading && user ? (
+              {isLoading && hasUser ? (
                 <div className="flex flex-col">
                   {[44, 32, 28, 52].map((item) => (
                     <div key={item} className="p-2 my-[2px]">
