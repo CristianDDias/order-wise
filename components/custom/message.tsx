@@ -38,7 +38,7 @@ export const Message = ({
               return toolInvocation.state === "result" ? (
                 <span key={toolInvocation.toolCallId} className="italic">
                   Executed tools
-                  <pre className="overflow-auto">{JSON.stringify(toolInvocation.result, null, 2)}</pre>
+                  {/* <pre className="overflow-auto">{JSON.stringify(toolInvocation.result, null, 2)}</pre> */}
                 </span>
               ) : (
                 <span key={toolInvocation.toolCallId} className="italic">
