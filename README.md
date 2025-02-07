@@ -1,8 +1,4 @@
-# Challenge
-
-## Demo
-
-https://challenge-trashlab.vercel.app/
+# Order Wise
 
 ## Installation
 
